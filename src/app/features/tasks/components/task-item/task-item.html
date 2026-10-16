@@ -1,36 +1,6 @@
 <article class="task-item" [class.completed]="task().isCompleted">
   @if (editing()) {
-    <form
-      class="edit-form"
-      (ngSubmit)="save()"
-      (keydown.escape)="closeEditor()"
-      [attr.aria-label]="'Ndrysho detyrën: ' + task().title"
-    >
-      <label [for]="'edit-title-' + task().id">Titulli</label>
-      <input
-        #editTitle
-        [id]="'edit-title-' + task().id"
-        name="title"
-        maxlength="120"
-        required
-        [ngModel]="draftTitle()"
-        (ngModelChange)="draftTitle.set($event)"
-      />
-      <label [for]="'edit-description-' + task().id">Shënimi <span>(opsional)</span></label>
-      <input
-        [id]="'edit-description-' + task().id"
-        name="description"
-        maxlength="240"
-        [ngModel]="draftDescription()"
-        (ngModelChange)="draftDescription.set($event)"
-      />
-      <div class="edit-actions">
-        <button class="secondary-button" type="button" (click)="closeEditor()">Anulo</button>
-        <button class="primary-button" type="submit" [disabled]="!draftTitle().trim()">
-          Ruaj ndryshimet
-        </button>
-      </div>
-    </form>
+    <app-task-editor [task]="task()" (saved)="saveTask($event)" (cancelled)="closeEditor()" />
   } @else {
     <div class="task-row">
       <input
@@ -55,7 +25,7 @@
         type="button"
         [attr.aria-label]="'Ndrysho detyrën: ' + task().title"
         title="Ndrysho detyrën"
-        (click)="startEditing()"
+        (click)="editing.set(true)"
       >
         <app-icon name="edit" />
       </button>

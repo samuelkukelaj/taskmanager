@@ -1,64 +1,45 @@
 import { Injectable, computed, signal } from '@angular/core';
-import { Task, TaskCounts, TaskDraft } from '../models/task';
+import { INITIAL_TASKS } from '../data/initial-tasks';
+import type { Task, TaskDraft } from '../models/task';
+import type { TaskCounts } from '../models/task-filter';
+import { normalizeTaskDraft } from '../utils/task-validation';
 
-const INITIAL_TASKS: readonly Task[] = [
-  {
-    id: 1,
-    title: 'Me mësu Angular',
-    description: 'Me kuptu strukturën e një projekti Angular.',
-    isCompleted: false,
-  },
-  {
-    id: 2,
-    title: 'Organizo javën',
-    description: 'Zgjidh tri gjërat më të rëndësishme për këtë javë.',
-    isCompleted: false,
-  },
-  {
-    id: 3,
-    title: 'Pak kohë për një ide të re',
-    description: 'Shëno diçka që do të doje ta krijoje.',
-    isCompleted: false,
-  },
-  {
-    id: 4,
-    title: 'Hapi i parë: krijo hapësirën tënde',
-    description: 'Një fillim i thjeshtë për një ditë më të organizuar.',
-    isCompleted: true,
-  },
-];
-
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class TaskStore {
   private readonly taskState = signal<readonly Task[]>(INITIAL_TASKS);
-  private nextId = INITIAL_TASKS.length + 1;
+  private nextId = Math.max(0, ...INITIAL_TASKS.map((task) => task.id)) + 1;
 
   readonly tasks = this.taskState.asReadonly();
+
   readonly counts = computed<TaskCounts>(() => {
     const all = this.tasks().length;
     const completed = this.tasks().filter((task) => task.isCompleted).length;
 
     return { all, active: all - completed, completed };
   });
+
   readonly progress = computed(() => {
     const { all, completed } = this.counts();
 
     return all === 0 ? 0 : Math.round((completed / all) * 100);
   });
 
-  add(draft: TaskDraft): void {
-    const title = draft.title.trim();
+  add(draft: TaskDraft): Task | null {
+    const normalizedDraft = normalizeTaskDraft(draft);
 
-    if (!title || title.length > 120 || draft.description.length > 240) return;
+    if (!normalizedDraft) {
+      return null;
+    }
 
     const task: Task = {
+      ...normalizedDraft,
       id: this.nextId++,
-      title,
-      description: draft.description.trim(),
       isCompleted: false,
     };
 
     this.taskState.update((tasks) => [task, ...tasks]);
+
+    return task;
   }
 
   toggle(id: number): void {
@@ -68,14 +49,14 @@ export class TaskStore {
   }
 
   update(id: number, draft: TaskDraft): void {
-    const title = draft.title.trim();
+    const normalizedDraft = normalizeTaskDraft(draft);
 
-    if (!title || title.length > 120 || draft.description.length > 240) return;
+    if (!normalizedDraft) {
+      return;
+    }
 
     this.taskState.update((tasks) =>
-      tasks.map((task) =>
-        task.id === id ? { ...task, title, description: draft.description.trim() } : task,
-      ),
+      tasks.map((task) => (task.id === id ? { ...task, ...normalizedDraft } : task)),
     );
   }
 }

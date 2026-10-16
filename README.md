@@ -1,59 +1,71 @@
-# TaskManager
+# Detyrat
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.3.
+Task manager minimalist me Angular dhe pamje të frymëzuar nga Apple Reminders.
 
-## Development server
-
-To start a local development server, run:
+## Nisja dhe kontrollet
 
 ```bash
-ng serve
+npm ci
+npm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Hap `http://localhost:4200/`. Nëse varësitë janë instaluar, mjafton `npm start`.
 
 ```bash
-ng generate component component-name
+npm run build
+npm test -- --watch=false
+npm run format:check
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Për të formatuar kodin, përdor `npm run format`.
 
-```bash
-ng generate --help
+## Struktura
+
+```text
+src/app/
+├── app.ts / app.html / app.css     # Pika hyrëse dhe router outlet
+├── app.config.ts                  # Konfigurimi i aplikacionit
+├── app.routes.ts                  # Ngarkimi i faqes së detyrave
+├── layout/
+│   └── workspace-layout/          # Struktura e përbashkët e faqes
+├── features/tasks/
+│   ├── pages/tasks-page/          # Koordinimi i faqes, kërkimi dhe filtrat
+│   ├── components/
+│   │   ├── task-sidebar/          # Navigimi sipas statusit
+│   │   ├── task-toolbar/          # Kërkimi
+│   │   ├── task-progress/         # Përmbledhja e progresit
+│   │   ├── task-form/             # Shtimi i një detyre
+│   │   ├── task-list/             # Lista dhe gjendjet bosh
+│   │   ├── task-item/             # Paraqitja e një detyre
+│   │   └── task-editor/           # Ndryshimi dhe anulimi i ndryshimeve
+│   ├── config/                   # Tekstet dhe ikonat e filtrave
+│   ├── data/                     # Detyrat fillestare për demonstrim
+│   ├── forms/                    # Typed reactive forms dhe validuesit Angular
+│   ├── models/                   # Tipet e detyrave dhe filtrave
+│   ├── services/                 # Gjendja e detyrave dhe veprimet mbi to
+│   └── utils/                    # Validimi dhe normalizimi i përbashkët
+└── shared/ui/icon/                # Ikonat e ripërdorshme
 ```
 
-## Building
+## Përgjegjësitë
 
-To build the project run:
+- `App` ngarkon faqen përmes router-it. Rrugët e panjohura kthehen te faqja kryesore.
+- `WorkspaceLayout` përcakton strukturën dhe sjelljen responsive. Përmbajtjen e merr përmes `ng-content`; nuk varet nga funksionaliteti i detyrave.
+- `TasksPage` lidh komponentët me `TaskStore` dhe mban gjendjen lokale të kërkimit dhe filtrit.
+- `TaskStore` zotëron listën, krijon identifikuesit dhe kryen shtimin, ndryshimin dhe përfundimin e detyrave. Numëruesit dhe progresi llogariten nga lista.
+- Komponentët e pamjes marrin të dhëna me `input()` dhe dërgojnë veprime me `output()`. Formularët mbajnë vetëm të dhënat që po shkruhen.
+- `TaskEditor` mban një kopje lokale gjatë ndryshimit. Anulimi nuk prek detyrën origjinale.
+- `createTaskForm` krijon formularë reaktivë me kontrolle `FormControl<string>` dhe `nonNullable`. Shtimi dhe ndryshimi përdorin të njëjtin model formulari; secili ka instancën e vet. Statusi lidhet me `toSignal` për përditësime me `OnPush`.
+- Rregullat në `task-validation.ts` përdoren si nga validuesit Angular, ashtu edhe nga `normalizeTaskDraft` në shërbim. Kufijtë përcaktohen vetëm te `TASK_LIMITS`.
 
-```bash
-ng build
-```
+Çdo komponent ka skedarë të veçantë `.ts`, `.html` dhe `.css`. Stilet specifike qëndrojnë te komponenti; variablat e dizajnit, butonat e përbashkët dhe rregullat bazë janë te `src/styles.css`.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Gjendja dhe ruajtja
 
-## Running unit tests
+`TaskStore` ofrohet në nivelin e `TasksPage`. Gjendja nuk është globale dhe nuk mbahet në komponentët e pamjes.
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Detyrat ruhen vetëm në memorien e aplikacionit. Rifreskimi i faqes i rikthen detyrat fillestare. Ky version nuk përdor backend ose `localStorage`.
 
-```bash
-ng test
-```
+## Verifikimi
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Kontrollet strikte të TypeScript dhe Angular templates janë aktive. Testet mbulojnë ngarkimin e faqes përmes router-it, shtimin, validimin, filtrimin dhe kërkimin së bashku, progresin, ruajtjen dhe anulimin e ndryshimeve, si dhe veprimet e shërbimit. Testet qëndrojnë pranë kodit përkatës.

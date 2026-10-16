@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { Icon } from '../../shared/ui/icon/icon';
+import { Icon } from '../../../../shared/ui/icon/icon';
 
 @Component({
-  selector: 'app-toolbar',
+  selector: 'app-task-toolbar',
   imports: [Icon],
-  templateUrl: './toolbar.html',
-  styleUrl: './toolbar.css',
+  templateUrl: './task-toolbar.html',
+  styleUrl: './task-toolbar.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Toolbar {
+export class TaskToolbar {
   readonly search = input.required<string>();
   readonly searchChanged = output<string>();
 }

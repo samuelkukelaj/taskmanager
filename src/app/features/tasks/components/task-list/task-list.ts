@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { Task, TaskFilter, TaskUpdate } from '../../models/task';
+import type { Task, TaskUpdate } from '../../models/task';
+import type { TaskFilter } from '../../models/task-filter';
 import { TaskItem } from '../task-item/task-item';
 import { Icon } from '../../../../shared/ui/icon/icon';
 

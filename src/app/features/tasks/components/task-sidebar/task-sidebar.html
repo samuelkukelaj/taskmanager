@@ -14,6 +14,7 @@
       <button
         type="button"
         class="navigation-item"
+        [attr.aria-label]="filter.label"
         [class.selected]="selectedFilter() === filter.id"
         [attr.aria-pressed]="selectedFilter() === filter.id"
         (click)="filterChanged.emit(filter.id)"

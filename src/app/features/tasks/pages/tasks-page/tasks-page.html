@@ -1,0 +1,44 @@
+<app-workspace-layout>
+  <app-task-sidebar
+    workspace-sidebar
+    [selectedFilter]="selectedFilter()"
+    [counts]="store.counts()"
+    (filterChanged)="selectedFilter.set($event)"
+  />
+  <app-task-toolbar workspace-toolbar [search]="search()" (searchChanged)="search.set($event)" />
+
+  <div class="content">
+    <header class="page-heading">
+      <div>
+        <p class="eyebrow">PAK MË SHUMË QARTËSI, ÇDO DITË.</p>
+        <h1>{{ currentView().title }}</h1>
+        <p class="page-description">{{ currentView().description }}</p>
+      </div>
+      <button class="primary-button new-task-button" type="button" (click)="taskForm.focusTitle()">
+        <span aria-hidden="true">+</span> Detyrë e re
+      </button>
+    </header>
+
+    <app-task-progress [counts]="store.counts()" [percentage]="store.progress()" />
+
+    <section class="tasks-section" aria-labelledby="tasks-heading">
+      <div class="section-heading">
+        <h2 id="tasks-heading">
+          Lista jote <span>{{ visibleTasks().length }}</span>
+        </h2>
+        <span class="section-hint">Një detyrë në një kohë</span>
+      </div>
+
+      <app-task-form #taskForm (taskCreated)="addTask($event)" />
+      <app-task-list
+        [tasks]="visibleTasks()"
+        [filter]="selectedFilter()"
+        [hasSearch]="search().trim().length > 0"
+        (taskToggled)="store.toggle($event)"
+        (taskUpdated)="store.update($event.id, $event.draft)"
+      />
+    </section>
+
+    <footer class="content-footer">Vend për planet e tua. Hapësirë për veten.</footer>
+  </div>
+</app-workspace-layout>

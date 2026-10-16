@@ -1,0 +1,28 @@
+<form
+  class="edit-form"
+  [formGroup]="form"
+  (ngSubmit)="save()"
+  (keydown.escape)="cancelled.emit()"
+  [attr.aria-label]="'Ndrysho detyrën: ' + task().title"
+>
+  <label [for]="'edit-title-' + task().id">Titulli</label>
+  <input
+    #titleInput
+    [id]="'edit-title-' + task().id"
+    formControlName="title"
+    [attr.maxlength]="limits.title"
+    required
+  />
+  <label [for]="'edit-description-' + task().id">Shënimi <span>(opsional)</span></label>
+  <input
+    [id]="'edit-description-' + task().id"
+    formControlName="description"
+    [attr.maxlength]="limits.description"
+  />
+  <div class="edit-actions">
+    <button class="secondary-button" type="button" (click)="cancelled.emit()">Anulo</button>
+    <button class="primary-button" type="submit" [disabled]="formStatus() !== 'VALID'">
+      Ruaj ndryshimet
+    </button>
+  </div>
+</form>

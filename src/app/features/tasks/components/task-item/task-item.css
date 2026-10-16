@@ -100,35 +100,6 @@
   background: #edf1f8;
   color: var(--accent);
 }
-.edit-form {
-  display: grid;
-  gap: 8px;
-  padding: 18px 7px;
-}
-.edit-form label {
-  font-size: 11px;
-  font-weight: 500;
-}
-.edit-form label span {
-  color: var(--text-secondary);
-  font-weight: 400;
-}
-.edit-form input {
-  min-width: 0;
-  width: 100%;
-  margin-bottom: 5px;
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  border-radius: 7px;
-  background: var(--surface);
-  color: var(--text);
-  font-size: 12px;
-}
-.edit-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-}
 @media (max-width: 850px) {
   .task-status {
     display: none;

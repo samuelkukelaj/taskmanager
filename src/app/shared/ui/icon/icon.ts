@@ -14,28 +14,8 @@ export type IconName = keyof typeof ICON_PATHS;
 
 @Component({
   selector: 'app-icon',
-  template: `<svg
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="1.7"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    aria-hidden="true"
-    focusable="false"
-  >
-    <path [attr.d]="paths[name()]" />
-  </svg>`,
-  styles: `
-    :host {
-      display: inline-flex;
-      flex-shrink: 0;
-      align-items: center;
-      justify-content: center;
-    }
-  `,
+  templateUrl: './icon.html',
+  styleUrl: './icon.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Icon {

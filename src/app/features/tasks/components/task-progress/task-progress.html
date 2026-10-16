@@ -1,0 +1,17 @@
+<section class="progress-card" aria-labelledby="progress-title">
+  <div class="progress-copy">
+    <span class="progress-icon" aria-hidden="true">✓</span>
+    <div>
+      <h2 id="progress-title">Çdo hap i vogël ka rëndësi.</h2>
+      <p>{{ counts().completed }} nga {{ counts().all }} detyra të përfunduara</p>
+    </div>
+  </div>
+  <div class="progress-summary">
+    <span class="progress-value">{{ percentage() }}<small>%</small></span>
+    <progress
+      [value]="counts().completed"
+      [max]="counts().all || 1"
+      aria-label="Detyrat e përfunduara"
+    ></progress>
+  </div>
+</section>
