@@ -1,0 +1,36 @@
+:host {
+  display: block;
+}
+.task-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.task-list li {
+  border-bottom: 1px solid var(--border);
+}
+.empty-state {
+  display: grid;
+  justify-items: center;
+  padding: 45px 18px;
+  text-align: center;
+}
+.empty-icon {
+  display: grid;
+  place-items: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 14px;
+  background: #f1f5fc;
+  color: var(--accent);
+}
+h3 {
+  margin: 17px 0 7px;
+  font-size: 14px;
+  font-weight: 550;
+}
+p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 12px;
+}

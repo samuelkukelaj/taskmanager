@@ -1,0 +1,141 @@
+:host {
+  display: block;
+}
+.task-row {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-height: 87px;
+  padding: 16px 7px;
+  border-radius: 8px;
+  transition: background 150ms;
+}
+.task-row:hover {
+  background: #fafafb;
+}
+.task-checkbox {
+  appearance: none;
+  display: grid;
+  flex: 0 0 19px;
+  place-items: center;
+  width: 19px;
+  height: 19px;
+  margin: 0;
+  border: 1.5px solid #cbd0d9;
+  border-radius: 50%;
+  background: var(--surface);
+  cursor: pointer;
+}
+.task-checkbox:hover {
+  border-color: var(--accent);
+}
+.task-checkbox:checked {
+  border-color: #2d9a6b;
+  background: #2d9a6b;
+}
+.task-checkbox:checked::after {
+  content: '';
+  width: 7px;
+  height: 4px;
+  transform: translateY(-1px) rotate(-45deg);
+  border-bottom: 1.5px solid white;
+  border-left: 1.5px solid white;
+}
+.task-copy {
+  flex: 1;
+  min-width: 0;
+}
+.task-title {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+  cursor: pointer;
+}
+.task-copy p {
+  margin: 5px 0 0;
+  color: var(--text-secondary);
+  font-size: 11px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.completed .task-title {
+  color: var(--text-muted);
+  text-decoration: line-through;
+  text-decoration-color: #a9afb9;
+}
+.completed .task-copy p {
+  color: var(--text-muted);
+}
+.task-status {
+  flex-shrink: 0;
+  padding: 4px 7px;
+  border-radius: 5px;
+  background: #f1f2f5;
+  color: #747b89;
+  font-size: 9px;
+  font-weight: 500;
+}
+.task-status.done {
+  background: #edf7f1;
+  color: #287e58;
+}
+.edit-button {
+  display: grid;
+  place-items: center;
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+}
+.edit-button app-icon {
+  transform: scale(0.75);
+}
+.edit-button:hover {
+  background: #edf1f8;
+  color: var(--accent);
+}
+.edit-form {
+  display: grid;
+  gap: 8px;
+  padding: 18px 7px;
+}
+.edit-form label {
+  font-size: 11px;
+  font-weight: 500;
+}
+.edit-form label span {
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+.edit-form input {
+  min-width: 0;
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 12px;
+}
+.edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+@media (max-width: 850px) {
+  .task-status {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .task-row {
+    transition: none;
+  }
+}

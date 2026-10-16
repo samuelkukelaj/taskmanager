@@ -1,0 +1,64 @@
+<article class="task-item" [class.completed]="task().isCompleted">
+  @if (editing()) {
+    <form
+      class="edit-form"
+      (ngSubmit)="save()"
+      (keydown.escape)="closeEditor()"
+      [attr.aria-label]="'Ndrysho detyrën: ' + task().title"
+    >
+      <label [for]="'edit-title-' + task().id">Titulli</label>
+      <input
+        #editTitle
+        [id]="'edit-title-' + task().id"
+        name="title"
+        maxlength="120"
+        required
+        [ngModel]="draftTitle()"
+        (ngModelChange)="draftTitle.set($event)"
+      />
+      <label [for]="'edit-description-' + task().id">Shënimi <span>(opsional)</span></label>
+      <input
+        [id]="'edit-description-' + task().id"
+        name="description"
+        maxlength="240"
+        [ngModel]="draftDescription()"
+        (ngModelChange)="draftDescription.set($event)"
+      />
+      <div class="edit-actions">
+        <button class="secondary-button" type="button" (click)="closeEditor()">Anulo</button>
+        <button class="primary-button" type="submit" [disabled]="!draftTitle().trim()">
+          Ruaj ndryshimet
+        </button>
+      </div>
+    </form>
+  } @else {
+    <div class="task-row">
+      <input
+        class="task-checkbox"
+        type="checkbox"
+        [id]="'task-' + task().id"
+        [checked]="task().isCompleted"
+        (change)="taskToggled.emit(task().id)"
+      />
+      <div class="task-copy">
+        <label class="task-title" [for]="'task-' + task().id">{{ task().title }}</label>
+        @if (task().description) {
+          <p>{{ task().description }}</p>
+        }
+      </div>
+      <span class="task-status" [class.done]="task().isCompleted">{{
+        task().isCompleted ? 'Përfunduar' : 'Në pritje'
+      }}</span>
+      <button
+        #editButton
+        class="edit-button"
+        type="button"
+        [attr.aria-label]="'Ndrysho detyrën: ' + task().title"
+        title="Ndrysho detyrën"
+        (click)="startEditing()"
+      >
+        <app-icon name="edit" />
+      </button>
+    </div>
+  }
+</article>

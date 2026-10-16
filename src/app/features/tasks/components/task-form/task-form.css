@@ -1,0 +1,69 @@
+:host {
+  display: block;
+  margin-bottom: 14px;
+}
+.task-form {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fdfdfe;
+  transition:
+    border-color 150ms,
+    box-shadow 150ms;
+}
+.task-form:focus-within {
+  border-color: #83b5ff;
+  box-shadow: 0 0 0 3px #007aff0a;
+}
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 12px 14px 4px;
+}
+.add-icon {
+  color: var(--accent);
+}
+input {
+  min-width: 0;
+  width: 100%;
+  padding: 5px 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 13px;
+}
+input::placeholder {
+  color: var(--text-muted);
+}
+.add-button {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 7px;
+  background: var(--accent);
+  color: white;
+}
+.add-button:disabled {
+  background: #f0f1f4;
+  color: #979aa4;
+  cursor: default;
+}
+.description-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 18px 12px 45px;
+}
+.description-row input {
+  font-size: 11px;
+}
+.keyboard-hint {
+  color: #9b9ea9;
+  font-size: 15px;
+}

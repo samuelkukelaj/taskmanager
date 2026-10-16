@@ -1,0 +1,16 @@
+<header class="toolbar">
+  <div class="breadcrumb">
+    <span>Hapësira ime</span><app-icon name="arrow" /><span>Detyrat</span>
+  </div>
+  <label class="search">
+    <app-icon name="search" />
+    <span class="sr-only">Kërko në detyra</span>
+    <input
+      #searchInput
+      type="search"
+      placeholder="Kërko një detyrë…"
+      [value]="search()"
+      (input)="searchChanged.emit(searchInput.value)"
+    />
+  </label>
+</header>

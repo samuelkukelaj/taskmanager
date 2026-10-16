@@ -1,0 +1,35 @@
+<form class="task-form" (ngSubmit)="submit()" aria-label="Shto një detyrë">
+  <div class="title-row">
+    <span class="add-icon"><app-icon name="plus" /></span>
+    <label class="sr-only" for="new-task-title">Titulli i detyrës së re</label>
+    <input
+      #titleInput
+      id="new-task-title"
+      name="title"
+      type="text"
+      placeholder="Çfarë do të bësh sot?"
+      maxlength="120"
+      required
+      autocomplete="off"
+      [ngModel]="title()"
+      (ngModelChange)="title.set($event)"
+    />
+    <button class="add-button" type="submit" [disabled]="!title().trim()" aria-label="Shto detyrën">
+      <app-icon name="arrow" />
+    </button>
+  </div>
+  <div class="description-row">
+    <label class="sr-only" for="new-task-description">Përshkrimi i detyrës, opsional</label>
+    <input
+      id="new-task-description"
+      name="description"
+      type="text"
+      placeholder="Shto një shënim, nëse dëshiron…"
+      maxlength="240"
+      [ngModel]="description()"
+      (ngModelChange)="description.set($event)"
+    />
+    <span class="keyboard-hint" aria-hidden="true">↵</span>
+  </div>
+</form>
+<p class="sr-only" role="status">{{ announcement() }}</p>

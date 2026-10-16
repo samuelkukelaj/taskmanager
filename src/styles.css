@@ -1,1 +1,100 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  color-scheme: light;
+  --surface: #ffffff;
+  --surface-muted: #f3f4f7;
+  --border: #e9eaee;
+  --text: #242630;
+  --text-secondary: #626b7b;
+  --text-muted: #6b7280;
+  --accent: #0071eb;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+  color: var(--text);
+  background: #eff0f4;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body {
+  min-width: 320px;
+  margin: 0;
+}
+button,
+input {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: default;
+}
+button,
+a,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+:focus-visible {
+  outline: 3px solid #0071eb80;
+  outline-offset: 4px;
+}
+::selection {
+  background: #dceaff;
+}
+.primary-button,
+.secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 9px 13px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.primary-button {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 1px 2px #0069dc18;
+}
+.primary-button:hover {
+  background: #0062d1;
+}
+.primary-button:disabled {
+  background: #e8ebf0;
+  color: #767c88;
+  box-shadow: none;
+}
+.secondary-button {
+  border-color: var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+}
+.secondary-button:hover {
+  background: var(--surface-muted);
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}

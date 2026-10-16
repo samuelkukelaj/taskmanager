@@ -1,0 +1,30 @@
+@if (tasks().length > 0) {
+  <ul class="task-list" aria-label="Detyrat">
+    @for (task of tasks(); track task.id) {
+      <li>
+        <app-task-item
+          [task]="task"
+          (taskToggled)="taskToggled.emit($event)"
+          (taskUpdated)="taskUpdated.emit($event)"
+        />
+      </li>
+    }
+  </ul>
+} @else {
+  <div class="empty-state" role="status">
+    <span class="empty-icon"><app-icon [name]="hasSearch() ? 'search' : 'check-circle'" /></span>
+    @if (hasSearch()) {
+      <h3>Nuk u gjet asnjë detyrë</h3>
+      <p>Provo një fjalë tjetër ose ndrysho filtrin.</p>
+    } @else if (filter() === 'completed') {
+      <h3>Çdo përfundim fillon me një hap</h3>
+      <p>Detyrat që përfundon do të shfaqen këtu.</p>
+    } @else if (filter() === 'active') {
+      <h3>Gjithçka është kryer.</h3>
+      <p>Shijoje këtë moment ose nis diçka të re.</p>
+    } @else {
+      <h3>Hapësirë për një fillim të ri</h3>
+      <p>Shto detyrën tënde të parë më sipër.</p>
+    }
+  </div>
+}

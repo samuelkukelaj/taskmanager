@@ -1,0 +1,39 @@
+<aside class="sidebar" aria-label="Hapësira e punës">
+  <a class="skip-link" href="#main-content">Kalo te detyrat</a>
+  <div class="brand">
+    <span class="brand-mark"><app-icon name="list" /></span>
+    <div>
+      <span class="brand-name">Detyrat</span>
+      <p>Pak më thjeshtë, çdo ditë.</p>
+    </div>
+  </div>
+
+  <div class="navigation-label">HAPËSIRA IME</div>
+  <nav aria-label="Filtro detyrat">
+    @for (filter of filters; track filter.id) {
+      <button
+        type="button"
+        class="navigation-item"
+        [class.selected]="selectedFilter() === filter.id"
+        [attr.aria-pressed]="selectedFilter() === filter.id"
+        (click)="filterChanged.emit(filter.id)"
+      >
+        <app-icon [name]="filter.icon" />
+        <span class="navigation-text">{{ filter.label }}</span>
+        <span class="count">{{ counts()[filter.id] }}</span>
+      </button>
+    }
+  </nav>
+
+  <div class="sidebar-note">
+    <span class="note-line"></span>
+    <p>Gjërat e mëdha fillojnë<br />me një hap të vogël.</p>
+  </div>
+  <div class="profile">
+    <span class="avatar" aria-hidden="true">U</span>
+    <div>
+      <span>Hapësira personale</span>
+      <p>Vetëm për ty</p>
+    </div>
+  </div>
+</aside>
